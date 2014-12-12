@@ -1,0 +1,18 @@
+<div id="series">
+	<h1>{{series.SeriesName}} [{{series.ImdbID}}]</h1>
+	<div ng-repeat="(seasonNumber, episodes) in series.Episodes | groupBy: 'SeasonNumber'">
+		<h2>Season {{seasonNumber}}</h2>
+	 	<div ng-repeat="episode in episodes | orderBy: 'EpisodeNumber'">
+			<strong>S{{episode.SeasonNumber}}E{{episode.EpisodeNumber}}</strong> {{episode.EpisodeName}}
+			<span style="color:maroon;" ng-if="episode.LocalExists==false && episode.HasAired==true">
+				[missing<span ng-if="episode.TorrentLink">:<a href="{{episode.TorrentLink}}">download</a></span>]
+			</span>
+			<span style="color:orange;" ng-if="HasAired==false">
+				[unaired<span ng-if="episode.FirstAired">:{{episode.FirstAired}}</span>]
+			</span>
+			<span style="color:green;" ng-if="episode.LocalExists==true">
+				[available]
+			</span>
+		</div>
+	</div>
+</div>
